@@ -1,0 +1,148 @@
+# CLion IDE files
+.idea/
+cmake-build-*/
+.cmake/
+
+# Build directories
+build/
+builds/
+out/
+debug/
+release/
+x64/
+x86/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Testing/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps/
+
+# C++ compiled object files
+*.o
+*.obj
+*.elf
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Conan package manager
+conanfile.txt
+conaninfo.txt
+conanbuildinfo.cmake
+conandata.yml
+*.lock
+
+# vcpkg
+vcpkg_installed/
+
+# Visual Studio files (if using Visual Studio compiler)
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.#*
+
+# Log files
+*.log
+
+# Local environment files
+.env
+.env.local
+.env.*.local
+
+# Test coverage
+*.gcov
+*.gcda
+*.gcno
+lcov.info
+coverage/
+
+# Documentation
+docs/html/
+docs/latex/
+
+# Package managers
+node_modules/
+.npm
+.pnp.*
+
+# Custom (add your project-specific ignores here)
+# config/secrets.h
+# data/
+# assets/
