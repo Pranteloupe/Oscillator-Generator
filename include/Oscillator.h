@@ -4,6 +4,7 @@
 
 #ifndef OSCILLATOR_H
 #define OSCILLATOR_H
+#include <string>
 
 class Oscillator {
     public:
@@ -11,6 +12,8 @@ class Oscillator {
     float process();
     void setFrequency(float freq);
     void setAmp(float amp);
+    void setType(int t);
+    std::string waveType() const;
     [[nodiscard]] float getFrequency() const;
     [[nodiscard]] int getSampleRate() const;
 
@@ -20,6 +23,7 @@ class Oscillator {
     float angle;
     float offset;
     int sampleRate;
+    int type;
 };
 
 #endif //OSCILLATOR_H

@@ -9,26 +9,85 @@
 Oscillator::Oscillator(float freq, float amp, int sampleRate) : frequency(freq), amplitude(amp), sampleRate(sampleRate) {
     offset = 2 * M_PI * freq / sampleRate;
     angle = 0.0f;
+    type = 0;
 }
 
 float Oscillator::process() {
-    auto sample = amplitude * sin(angle);
-    angle += offset;
-    return sample;
+    if (type == 0) { //Sinusoid
+        auto sample = amplitude * sin(angle);
+        angle += offset;
+        return sample;
+    } else if (type == 1) { //Triangle Wave
+        auto sample = amplitude * (1.0f - 4.0f * abs(angle - 0.5f));
+        angle += offset;
+        if (angle >= 1.0f) {
+            angle -= 1.0f;
+        }
+        return sample;
+    } else if (type == 2) { //Square Wave
+        auto sample = amplitude * (angle < 0.5f ? -1.0f : 1.0f);
+        angle += offset;
+        if (angle >= 1.0f) {
+            angle -= 1.0f;
+        }
+        return sample;
+    } else { //Sawtooth Wave - not yet implemented
+        return 0.0f;
+    }
 }
 
 void Oscillator::setFrequency(float freq) {
     frequency = freq;
-    offset = 2 * M_PI * freq / sampleRate;
-    angle = 0.0f;
+    if (type == 0) {
+        offset = 2 * M_PI * frequency / sampleRate;
+        angle = 0.0f;
+    } else if (type == 1) {
+        offset = frequency / sampleRate;
+        angle = 0.0f;
+    } else if (type == 2) {
+        offset = frequency / sampleRate;
+        angle = 0.0f;
+    } else {
+        return;
+    }
 }
 
 void Oscillator::setAmp(float amp) {
     amplitude = amp;
 }
 
+void Oscillator::setType(int t) {
+    type = t;
+    if (type == 0) {
+        offset = 2 * M_PI * frequency / sampleRate;
+        angle = 0.0f;
+    } else if (type == 1) {
+        offset = frequency / sampleRate;
+        angle = 0.0f;
+    } else if (type == 2) {
+        offset = frequency / sampleRate;
+        angle = 0.0f;
+    } else {
+        return;
+    }
+}
+
+
 
 int Oscillator::getSampleRate() const { return sampleRate; }
+
+std::string Oscillator::waveType() const {
+    if (type == 0) {
+        return "Sinusoid";
+    } else if (type == 1) {
+        return "Triangle";
+    } else if (type == 2) {
+        return "Square";
+    } else {
+        return "Sawtooth";
+    }
+}
+
 
 float Oscillator::getFrequency() const { return frequency; }
 
