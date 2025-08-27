@@ -3,7 +3,9 @@ project(oscillator_generator)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(oscillator_generator main.cpp)
+add_executable(oscillator_generator src/main.cpp
+        include/Oscillator.h
+        src/Oscillator.cpp)
 
 find_package(portaudio REQUIRED)
 
