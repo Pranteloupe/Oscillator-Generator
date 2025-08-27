@@ -23,6 +23,10 @@ void Oscillator::setFrequency(float freq) {
     angle = 0.0f;
 }
 
+void Oscillator::setAmp(float amp) {
+    amplitude = amp;
+}
+
 
 int Oscillator::getSampleRate() const { return sampleRate; }
 

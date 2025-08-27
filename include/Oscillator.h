@@ -10,6 +10,7 @@ class Oscillator {
     Oscillator(float freq, float amp, int sampleRate);
     float process();
     void setFrequency(float freq);
+    void setAmp(float amp);
     [[nodiscard]] float getFrequency() const;
     [[nodiscard]] int getSampleRate() const;
 
