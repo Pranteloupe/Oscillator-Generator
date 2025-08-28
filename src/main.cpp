@@ -30,16 +30,23 @@ void clear(float (*buff)[FRAMES_PER_BUFFER][NUM_CHANNELS]) {
     }
 }
 
+bool isValidType(int t) {
+    if (t < 0 || t > 3) {
+        return false;
+    }
+    return true;
+}
+
 
 int main() {
     PaStream *stream;
     PaStreamParameters outputParameters;
     float buffer[FRAMES_PER_BUFFER][NUM_CHANNELS];
     int command = 0;
-    double left_freq = 440;
-    double right_freq = 440;
-    double left_amp = 0.5;
-    double right_amp = 0.5;
+    float left_freq = 440;
+    float right_freq = 440;
+    float left_amp = 0.5;
+    float right_amp = 0.5;
     int left_type = 0;
     int right_type = 0;
 
@@ -52,7 +59,7 @@ int main() {
     outputParameters.channelCount = NUM_CHANNELS;
     outputParameters.sampleFormat = paFloat32;
     outputParameters.suggestedLatency = Pa_GetDeviceInfo(outputParameters.device)->defaultLowOutputLatency;
-    outputParameters.hostApiSpecificStreamInfo = NULL;
+    outputParameters.hostApiSpecificStreamInfo = nullptr;
 
     err = Pa_OpenStream(&stream, nullptr, &outputParameters, SAMPLE_RATE,
         FRAMES_PER_BUFFER, paClipOff, nullptr, nullptr);
@@ -63,7 +70,6 @@ int main() {
     Oscillator left_oscillator(left_freq, left_amp, SAMPLE_RATE);
     Oscillator right_oscillator(right_freq, right_amp, SAMPLE_RATE);
 
-    //Include validations -- Errors when input is invalid
     while (true) {
         cout << "Commands:\n"
              << "0 - Run oscillators\n"
@@ -82,23 +88,27 @@ int main() {
         } else if (command == 1) {
             cout << "Enter type (0 - Sinusoid, 1 - Triangle, 2 - Square, 3 - Sawtooth):\n";
             cin >> left_type;
-            cout << "Enter frequency: ";
-            cin >> left_freq;
-            cout << "Enter amplitude: ";
-            cin >> right_amp;
-            left_oscillator.setType(left_type);
-            left_oscillator.setFrequency(left_freq);
-            left_oscillator.setAmp(left_amp);
+            if (isValidType(left_type)) {
+                cout << "Enter frequency: ";
+                cin >> left_freq;
+                cout << "Enter amplitude: ";
+                cin >> right_amp;
+                left_oscillator.setType(left_type);
+                left_oscillator.setFrequency(left_freq);
+                left_oscillator.setAmp(left_amp);
+            }
         } else if (command == 2) {
             cout << "Enter type (0 - Sinusoid, 1 - Triangle, 2 - Square, 3 - Sawtooth):\n";
             cin >> right_type;
-            cout << "Enter frequency: ";
-            cin >> right_freq;
-            cout << "Enter amplitude: ";
-            cin >> right_amp;
-            right_oscillator.setType(right_type);
-            right_oscillator.setFrequency(right_freq);
-            right_oscillator.setAmp(right_amp);
+            if (isValidType(right_type)) {
+                cout << "Enter frequency: ";
+                cin >> right_freq;
+                cout << "Enter amplitude: ";
+                cin >> right_amp;
+                right_oscillator.setType(right_type);
+                right_oscillator.setFrequency(right_freq);
+                right_oscillator.setAmp(right_amp);
+            }
         } else if (command == 0) {
             err = Pa_StartStream(stream);
             if (err != paNoError) { stopProgram(err); }
@@ -118,6 +128,8 @@ int main() {
 
             err = Pa_StopStream(stream);
             if (err != paNoError) { stopProgram(err); }
+        } else {
+            cout << "Invalid command!\n";
         }
     }
 

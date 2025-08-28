@@ -13,7 +13,7 @@ class Oscillator {
     void setFrequency(float freq);
     void setAmp(float amp);
     void setType(int t);
-    std::string waveType() const;
+    [[nodiscard]] std::string waveType() const;
     [[nodiscard]] float getFrequency() const;
     [[nodiscard]] int getSampleRate() const;
 

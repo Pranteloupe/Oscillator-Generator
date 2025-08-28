@@ -31,8 +31,14 @@ float Oscillator::process() {
             angle -= 1.0f;
         }
         return sample;
-    } else { //Sawtooth Wave - not yet implemented
-        return 0.0f;
+    } else { //Sawtooth Wave
+        float frac = fmod(angle, 1.0f);
+        auto sample = amplitude * (frac - floor(frac));
+        angle += offset;
+        if (angle >= 1.0f) {
+            angle -= 1.0f;
+        }
+        return sample;
     }
 }
 
@@ -41,14 +47,9 @@ void Oscillator::setFrequency(float freq) {
     if (type == 0) {
         offset = 2 * M_PI * frequency / sampleRate;
         angle = 0.0f;
-    } else if (type == 1) {
-        offset = frequency / sampleRate;
-        angle = 0.0f;
-    } else if (type == 2) {
-        offset = frequency / sampleRate;
-        angle = 0.0f;
     } else {
-        return;
+        offset = frequency / sampleRate;
+        angle = 0.0f;
     }
 }
 
@@ -58,18 +59,6 @@ void Oscillator::setAmp(float amp) {
 
 void Oscillator::setType(int t) {
     type = t;
-    if (type == 0) {
-        offset = 2 * M_PI * frequency / sampleRate;
-        angle = 0.0f;
-    } else if (type == 1) {
-        offset = frequency / sampleRate;
-        angle = 0.0f;
-    } else if (type == 2) {
-        offset = frequency / sampleRate;
-        angle = 0.0f;
-    } else {
-        return;
-    }
 }
 
 
